@@ -34,6 +34,14 @@ def abundantSums(n,abundantNumbers):
             break
 
 
+def sums(lst, limit):    # prevent global lookups by using a function
+    res = set()          # set membership testing is much faster than lists
+    res_add = res.add    # cache add method
+    for i, first in enumerate(lst):   # get index and item at the same time
+        for second in lst[i:]:        # one copy operation saves n index ops.
+            res_add(first + second)   # prevent creation/lookup of extra local temporary
+    return sorted([x for x in res if x < limit])
+
 
 if __name__ == "__main__":
 
@@ -49,7 +57,7 @@ if __name__ == "__main__":
     """
 
     abundantNumbers = GetAbundantNumbers(12,28123)
-    FoundSums = []
-
-
     
+    print(sum( (set([i for i in range(1,28124)]) - set(sums(abundantNumbers,28124))) ))
+    # print(sums(abundantNumbers,28124))
+
