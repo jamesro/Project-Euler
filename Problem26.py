@@ -13,3 +13,26 @@ Where 0.1(6) means 0.166666..., and has a 1-digit recurring cycle. It can be see
 
 Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part."""
 
+def findRepeatingDecimals(n):
+    remainders = []
+
+    nextRemainder = 1%n
+
+    while nextRemainder not in remainders:
+        remainders.append(nextRemainder)
+        nextRemainder = (10*nextRemainder)%n
+        if nextRemainder == 0:
+            break
+
+    return remainders
+
+
+if __name__ == "__main__":
+    largest, d = 0, 0
+
+    for i in range(2,1000):
+        rems = findRepeatingDecimals(i)
+        if len(rems) > largest:
+            largest, d = len(rems), i
+
+    print(d)
