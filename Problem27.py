@@ -29,8 +29,27 @@ def isPrime(n):
 def getPrimes(limit):
     return [i for i in range(2,limit) if isPrime(i)]
 
+
+def checkConsecutivePrimes(a,b):
+    prime = True
+    n = 0
+    while prime:
+        value = n**2 + a*n + b
+        if not isPrime(value):
+            prime = False
+        n += 1
+    return n    
+
 if __name__ == "__main__":
 
     primes = getPrimes(1000)
+    maxLength = 0
+    aMax,bMax = 0,0
     for b in primes[::-1]:
-        
+        for a in range(-1000,1000):
+            length = checkConsecutivePrimes(a,b)
+            if length > maxLength:
+                maxLength = length
+                aMax, bMax = a,b
+
+    print(aMax*bMax)
