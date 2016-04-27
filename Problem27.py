@@ -17,7 +17,20 @@ Find the product of the coefficients, a and b, for the quadratic expression that
 """
 
 #   get primes below 1000
-#   
-
-##
+#   b must be prime
 #
+
+
+from itertools import count, islice
+from math import sqrt
+def isPrime(n):
+    return n > 1 and all(n%i for i in islice(count(2), int(sqrt(n)-1)))
+
+def getPrimes(limit):
+    return [i for i in range(2,limit) if isPrime(i)]
+
+if __name__ == "__main__":
+
+    primes = getPrimes(1000)
+    for b in primes[::-1]:
+        
